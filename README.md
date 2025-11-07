@@ -1,16 +1,34 @@
-# uts_mobile
+# TUGAS UTS
 
-A new Flutter project.
+## SCREENSHOT
 
-## Getting Started
+<p align="center">
+  <img src="assets/screenshots/image.png" alt="Onboarding Screen" width="300">
+  <img src="assets/screenshots/image2.png" alt="Login Screen" width="300">
+</p>
 
-This project is a starting point for a Flutter application.
+## Identitas
 
-A few resources to get you started if this is your first Flutter project:
+- **Nama Lengkap:** Aditya Putra Perdana
+- **NIM:** 1123150159
+- **Mata Kuliah / Proyek:** Pemrograman Mobile
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Cara Menjalankan Project
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Pastikan sudah menginstal **Flutter SDK** minimal versi 3.x.x
+2. Clone atau download repository project ini:
+   ```bash
+   git clone https://github.com/kbdevs12/kb1179-1123150159-uts.git
+   cd flutter-onboarding-login
+   ```
+3. Install semua depedency:
+
+```bash
+flutter pub get
+```
+
+4. run:
+
+```bash
+flutter run
+```

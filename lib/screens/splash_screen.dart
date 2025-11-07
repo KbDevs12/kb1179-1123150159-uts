@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uts_mobile/screens/login_screen.dart';
+import '../widgets/app_footer.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -143,6 +144,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  const Center(child: AppFooter()),
                 ],
               ),
             ),
