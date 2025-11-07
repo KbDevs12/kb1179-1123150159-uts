@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-
-import 'login_screen.dart';
+import 'package:uts_mobile/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,30 +8,27 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<double> _scaleAnim;
+class _SplashScreenState extends State<SplashScreen> {
+  final PageController _controller = PageController();
+  int _currentPage = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 900),
-    );
-    _scaleAnim = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOutBack,
-    );
-    _controller.forward();
-
-    Timer(const Duration(seconds: 2), () {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()));
-    });
-  }
+  final List<Map<String, String>> onboardingData = [
+    {
+      "image": "assets/onboard1.png",
+      "title": "Welcome",
+      "desc": "Forgot to bring your wallet when you are shopping?",
+    },
+    {
+      "image": "assets/onboard2.png",
+      "title": "Welcome",
+      "desc": "Don't worry! we got you cover.\nUse Wallie instead of cash!",
+    },
+    {
+      "image": "assets/onboard3.png",
+      "title": "Welcome",
+      "desc": "Let’s try Wallie now!\nAnd get the best solution.",
+    },
+  ];
 
   @override
   void dispose() {
@@ -44,67 +38,115 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Colors.green.shade900, Colors.green.shade500],
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ScaleTransition(
-                scale: _scaleAnim,
-                child: Container(
-                  padding: const EdgeInsets.all(18),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(18),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.18),
-                        blurRadius: 10,
-                        offset: const Offset(0, 6),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 7,
+              child: PageView.builder(
+                controller: _controller,
+                itemCount: onboardingData.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentPage = index;
+                  });
+                },
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        onboardingData[index]['image']!,
+                        height: size.height * 0.35,
+                      ),
+                      const SizedBox(height: 30),
+                      Text(
+                        onboardingData[index]['title']!,
+                        style: const TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        onboardingData[index]['desc']!,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 15, color: Colors.red),
                       ),
                     ],
                   ),
-                  child: const FlutterLogo(size: 96),
                 ),
               ),
-              const SizedBox(height: 24),
-              const Text(
-                'UTS Mobile',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      onboardingData.length,
+                      (index) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        height: 8,
+                        width: _currentPage == index ? 20 : 8,
+                        decoration: BoxDecoration(
+                          color: _currentPage == index
+                              ? Colors.red
+                              : Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(double.infinity, 55),
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_currentPage == onboardingData.length - 1) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) => const LoginScreen(),
+                            ),
+                          );
+                        } else {
+                          _controller.nextPage(
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                      child: Text(
+                        _currentPage == onboardingData.length - 1
+                            ? "Get Started"
+                            : "Continue",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
-              const SizedBox(height: 8),
-              Text(
-                'Aplikasi contohnya — desain hijau modern',
-                style: TextStyle(color: Colors.green.shade100.withOpacity(0.9)),
-              ),
-              const SizedBox(height: 26),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: LinearProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  backgroundColor: Colors.white.withOpacity(0.15),
-                ),
-              ),
-              const SizedBox(height: 18),
-              Text(
-                'Memuat...',
-                style: TextStyle(color: Colors.green.shade50.withOpacity(0.9)),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

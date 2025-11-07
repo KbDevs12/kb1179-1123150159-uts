@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               CircleAvatar(
                 radius: 28,
-                backgroundColor: Colors.green.shade700,
+                backgroundColor: Colors.red.shade700,
                 child: Text(
                   initials,
                   style: const TextStyle(color: Colors.white, fontSize: 20),
@@ -83,19 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.check_circle,
                   'Tasks',
                   '12 active',
-                  Colors.green.shade600,
+                  Colors.red.shade600,
                 ),
                 _featureCard(
                   Icons.message,
                   'Messages',
                   '3 unread',
-                  Colors.teal.shade600,
+                  Colors.red.shade400,
                 ),
                 _featureCard(
                   Icons.insert_chart,
                   'Stats',
                   'Weekly',
-                  Colors.green.shade800,
+                  Colors.red.shade800,
                 ),
               ],
             ),
@@ -115,8 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context, idx) {
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: Colors.green.shade100,
-                  child: Icon(Icons.check, color: Colors.green.shade700),
+                  backgroundColor: Colors.red.shade100,
+                  child: Icon(Icons.check, color: Colors.red.shade700),
                 ),
                 title: Text('Activity #${idx + 1}'),
                 subtitle: const Text('Deskripsi singkat aktivitas.'),
@@ -226,7 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: const Icon(Icons.logout),
           label: const Text('Logout'),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green.shade700,
+            backgroundColor: Colors.red.shade700,
+            foregroundColor: Colors.white,
           ),
         ),
       ],
@@ -240,7 +241,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        backgroundColor: Colors.green.shade700,
+        backgroundColor: Colors.red.shade700,
+        foregroundColor: Colors.white,
       ),
       drawer: Drawer(
         child: SafeArea(
@@ -248,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               UserAccountsDrawerHeader(
-                decoration: BoxDecoration(color: Colors.green.shade700),
+                decoration: BoxDecoration(color: Colors.red.shade700),
                 accountName: Text(widget.userEmail.split('@').first),
                 accountEmail: Text(widget.userEmail),
                 currentAccountPicture: CircleAvatar(
@@ -283,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.green.shade50, Colors.green.shade100],
+            colors: [Colors.red.shade50, Colors.red.shade100],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -293,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: Colors.green.shade800,
+        selectedItemColor: Colors.red.shade800,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
@@ -309,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SnackBar(content: Text('Add new item (placeholder)')),
           );
         },
-        backgroundColor: Colors.green.shade700,
+        backgroundColor: Colors.red.shade700,
         child: const Icon(Icons.add),
       ),
     );
