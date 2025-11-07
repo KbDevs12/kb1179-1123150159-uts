@@ -3,8 +3,8 @@
 ## SCREENSHOT
 
 <p align="center">
-  <img src="assets/screenshots/image.png" alt="Onboarding Screen" width="300">
-  <img src="assets/screenshots/image2.png" alt="Login Screen" width="300">
+  <img src="assets/image.png" alt="Onboarding Screen" width="300">
+  <img src="assets/image2.png" alt="Login Screen" width="300">
 </p>
 
 ## Identitas
